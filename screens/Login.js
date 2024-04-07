@@ -1,20 +1,41 @@
+import React, { useState } from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
+    const navigation = useNavigation();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleLogin = () => {
+        if (username === "admin" && password === "admin") {
+            // Redirect to another screen using navigation
+            navigation.navigate("Home"); // Ganti "Home" dengan nama halaman tujuan Anda
+        } else {
+            // Handle invalid credentials
+            alert("Invalid username or password");
+        }
+    };
+
     return (
-        <View style={style.container}>
-            <Text style={style.judulText}> MyOffice </Text>
-            <View style={style.loginCard}>
-                <Text style={style.loginText}>Login</Text>
+        <View style={styles.container}>
+            <Text style={styles.judulText}> MyOffice </Text>
+            <View style={styles.loginCard}>
+                <Text style={styles.loginText}>Login</Text>
                 <TextInput
-                    style={style.placeholderText}
+                    style={styles.placeholderText}
                     placeholder="Username"
+                    value={username}
+                    onChangeText={(text) => setUsername(text)}
                 />
                 <TextInput
-                    style={style.placeholderText}
+                    style={styles.placeholderText}
                     placeholder="Password"
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                    secureTextEntry={true}
                 />
-                <Button title="button" color="#CFD6FF" />
+                <Button title="Login" onPress={handleLogin} color="#CFD6FF" />
             </View>
         </View>
     );
@@ -22,7 +43,7 @@ const Login = () => {
 
 export default Login;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     judulText: {
         textAlign: "center",
         color: "white",

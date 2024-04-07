@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     box: {
         marginVertical: 10,
         width: "100%",
-        height: "15%",
+        height: 15,
         backgroundColor: "#D9D9D9",
         borderRadius: 12,
     },
