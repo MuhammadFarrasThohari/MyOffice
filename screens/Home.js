@@ -6,6 +6,8 @@ import TaskCard from "../components/TaskCard";
 import WageCard from "../components/WageCard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Button } from "react-native";
+import deleteDatabase from "../database/deleteDatabase";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,6 +18,12 @@ const Home = () => {
             <PerformanceCard />
             <TaskCard />
             <WageCard />
+            <Button
+                title="test"
+                onPress={() => {
+                    deleteDatabase();
+                }}
+            />
         </View>
     );
 };

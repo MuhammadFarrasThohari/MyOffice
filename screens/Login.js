@@ -1,20 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import db from "../database/database";
 
 const Login = () => {
     const navigation = useNavigation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        // Lakukan pemanggilan query ketika komponen dipasang
+        db.transaction((tx) => {
+            tx.executeSql(
+                "SELECT * FROM users",
+                [],
+                (_, { rows }) => {
+                    // Menangkap hasil query di sini dan melakukan sesuatu dengannya jika diperlukan
+                    console.log(rows);
+                },
+                (_, error) => {
+                    console.log(
+                        "Terjadi error saat mengeksekusi query:",
+                        error
+                    );
+                }
+            );
+        });
+    }, []);
+
     const handleLogin = () => {
-        if (username === "admin" && password === "admin") {
-            // Redirect to another screen using navigation
-            navigation.navigate("Home"); // Ganti "Home" dengan nama halaman tujuan Anda
-        } else {
-            // Handle invalid credentials
-            alert("Invalid username or password");
-        }
+        // Query untuk mencari username dan password yang sesuai dari database
+        db.transaction((tx) => {
+            tx.executeSql(
+                "SELECT * FROM users WHERE username = ? AND password = ?",
+                [username, password],
+                (_, { rows }) => {
+                    if (rows.length > 0) {
+                        // Jika ditemukan, berarti kredensial benar
+                        // Redirect ke halaman beranda atau tindakan lain yang sesuai
+                        navigation.navigate("Home");
+                    } else {
+                        // Jika tidak ditemukan, beri peringatan bahwa kredensial tidak valid
+                        alert("Invalid username or password");
+                    }
+                },
+                (_, error) => {
+                    console.log("Error while executing query:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            );
+        });
     };
 
     return (
