@@ -11,14 +11,14 @@ import { supabase } from "../lib/supabase";
 
 const Tab = createBottomTabNavigator();
 
-async function getUserData() {
-    try {
-        const { data, error } = await supabase.auth.getSession();
-        console.log(data);
-    } catch (error) {
-        console.error("Error fetching user data:", error.message);
-    }
-}
+// async function getUserData() {
+//     try {
+//         const { data, error } = await supabase.auth.getSession();
+//         console.log(data);
+//     } catch (error) {
+//         console.error("Error fetching user data:", error.message);
+//     }
+// }
 
 const Home = () => {
     return (
@@ -27,7 +27,7 @@ const Home = () => {
             <PerformanceCard />
             <TaskCard />
             <WageCard />
-            <Button title="test" onPress={getUserData} />
+            <Button title="test" />
         </View>
     );
 };

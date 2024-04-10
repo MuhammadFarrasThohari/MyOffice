@@ -26,13 +26,24 @@ const Login = () => {
             });
             if (error) throw error; // Re-throw for handling in catch block
 
-            console.log("Login successful:", user); // Log successful login for debugging
+            console.log("Login successful:", user);
+            getUserData(); // Log successful login for debugging
             navigation.navigate("Home"); // Assuming you want to navigate to HomeScreen
         } catch (error) {
             console.error("Login error:", error); // Log error for debugging
             Alert.alert("Login Gagal", error.message, [{ text: "OK" }]); // Inform user about the error
         } finally {
             setIsLoading(false); // Set loading state to false regardless of success or failure
+        }
+    }
+
+    async function getUserData() {
+        try {
+            const { data, error } = await supabase.auth.refreshSession();
+            const { session, user } = data;
+            console.log(user.id);
+        } catch (error) {
+            console.error("Error fetching user data:", error.message);
         }
     }
 
