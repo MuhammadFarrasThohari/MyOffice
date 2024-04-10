@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View } from "react-native";
 import cardStyle from "../assets/StyleCard";
 
-const WageCard = (Gaji, BaseGaji, BonusGaji, OvertimeGaji) => {
+const WageCard = ({ Gaji, BaseGaji, BonusGaji, OvertimeGaji }) => {
     return (
         <View style={cardStyle.container}>
             <Text>Wage</Text>

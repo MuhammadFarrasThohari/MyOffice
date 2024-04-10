@@ -6,8 +6,19 @@ import TaskCard from "../components/TaskCard";
 import WageCard from "../components/WageCard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Button } from "react-native";
+import { supabase } from "../lib/supabase";
 
 const Tab = createBottomTabNavigator();
+
+async function getUserData() {
+    try {
+        const { data, error } = await supabase.auth.getSession();
+        console.log(data);
+    } catch (error) {
+        console.error("Error fetching user data:", error.message);
+    }
+}
 
 const Home = () => {
     return (
@@ -16,6 +27,7 @@ const Home = () => {
             <PerformanceCard />
             <TaskCard />
             <WageCard />
+            <Button title="test" onPress={getUserData} />
         </View>
     );
 };
