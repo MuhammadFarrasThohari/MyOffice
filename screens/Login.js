@@ -15,20 +15,20 @@ const Login = () => {
     const navigation = useNavigation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isLoading, setIsLoading] = useState(false); // Add loading state
+    const [isLoading, setIsLoading] = useState(false); // Loading state untuk render (tampilin) <ActivityIndicator> Component
 
     async function signIn() {
-        setIsLoading(true); // Set loading state to true
+        setIsLoading(true);
         try {
             const { user, error } = await supabase.auth.signInWithPassword({
                 email,
                 password,
             });
-            if (error) throw error; // Re-throw for handling in catch block
+            if (error) throw error;
 
             console.log("Login successful:", user);
-            getUserData(); // Log successful login for debugging
-            navigation.navigate("Home"); // Assuming you want to navigate to HomeScreen
+            getUserData(); // Untuk ngambil data user yang sedang login
+            navigation.navigate("Home");
         } catch (error) {
             console.error("Login error:", error); // Log error for debugging
             Alert.alert("Login Gagal", error.message, [{ text: "OK" }]); // Inform user about the error
@@ -38,10 +38,11 @@ const Login = () => {
     }
 
     async function getUserData() {
+        // Fungsi ini untuk mengambil user session yang berisikan token dan user data menggunakan refreshSession()
         try {
             const { data, error } = await supabase.auth.refreshSession();
             const { session, user } = data;
-            console.log(user.id);
+            console.log(user.id); //untuk ngecek user id pemilik (debugging for developer)
         } catch (error) {
             console.error("Error fetching user data:", error.message);
         }
