@@ -38,11 +38,11 @@ const Login = () => {
     }
 
     async function getUserData() {
-        // Fungsi ini untuk mengambil user session yang berisikan token dan user data menggunakan refreshSession()
+        // Fungsi ini untuk mengambil user session yang berisikan token dan user data menggunakan getSession()
         try {
-            const { data, error } = await supabase.auth.refreshSession();
-            const { session, user } = data;
-            console.log(user.id); //untuk ngecek user id pemilik (debugging for developer)
+            const { data, error } = await supabase.auth.getSession();
+            const user = data.session.user.id;
+            console.log(user); //untuk ngecek user id pemilik (debugging for developer)
         } catch (error) {
             console.error("Error fetching user data:", error.message);
         }
