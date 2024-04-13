@@ -1,7 +1,23 @@
-import { Text, StyleSheet, View } from "react-native";
+import React, { useEffect } from "react";
+import { Text, View, StyleSheet } from "react-native";
 import cardStyle from "../assets/StyleCard";
+import { supabase } from "../lib/supabase";
+import getWageData from "../data/data";
 
 const WageCard = ({ Gaji, BaseGaji, BonusGaji, OvertimeGaji }) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getWageData();
+                console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <View style={cardStyle.container}>
             <Text>Wage</Text>

@@ -20,6 +20,18 @@ const Tab = createBottomTabNavigator();
 //     }
 // }
 
+const fetchData = async () => {
+    try {
+        const { data, error } = await supabase.from("test").select();
+        if (error) {
+            throw error;
+        }
+        console.log(data[0]);
+    } catch (error) {
+        console.error("Error fetching wage data:", error.message);
+    }
+};
+
 const Home = () => {
     return (
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
@@ -27,7 +39,7 @@ const Home = () => {
             <PerformanceCard />
             <TaskCard />
             <WageCard />
-            <Button title="test" />
+            <Button title="test" onPress={fetchData} />
         </View>
     );
 };
