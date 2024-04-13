@@ -11,27 +11,6 @@ import { supabase } from "../lib/supabase";
 
 const Tab = createBottomTabNavigator();
 
-// async function getUserData() {
-//     try {
-//         const { data, error } = await supabase.auth.getSession();
-//         console.log(data);
-//     } catch (error) {
-//         console.error("Error fetching user data:", error.message);
-//     }
-// }
-
-const fetchData = async () => {
-    try {
-        const { data, error } = await supabase.from("test").select();
-        if (error) {
-            throw error;
-        }
-        console.log(data[0]);
-    } catch (error) {
-        console.error("Error fetching wage data:", error.message);
-    }
-};
-
 const Home = () => {
     return (
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
