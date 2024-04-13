@@ -15,6 +15,12 @@ const styles = StyleSheet.create({
         elevation: 5,
         margin: 10,
     },
+
+    second_container: {
+        backgroundColor: "#CFD6FF",
+        padding: 10,
+        borderRadius: 14,
+    },
 });
 
 export default styles;

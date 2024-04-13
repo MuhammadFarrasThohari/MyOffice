@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import cardStyle from "../assets/StyleCard";
-import { supabase } from "../lib/supabase";
 import getWageData from "../data/data";
 
 // Wage Card untuk menampung data gaji karyawan
@@ -35,7 +34,7 @@ const WageCard = () => {
         <View style={cardStyle.container}>
             <Text>Wage</Text>
             <Text>{formatter.format(gajiPokok + gajiBonus + gajiLembur)}</Text>
-            <View style={styles.detailWage}>
+            <View style={cardStyle.second_container}>
                 <Text>Detail: {"\n"}</Text>
                 <Text>Base: {formatter.format(gajiPokok)}</Text>
                 <Text>Bonus: {formatter.format(gajiBonus)}</Text>
@@ -44,13 +43,5 @@ const WageCard = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    detailWage: {
-        backgroundColor: "#CFD6FF",
-        padding: 10,
-        borderRadius: 14,
-    },
-});
 
 export default WageCard;
