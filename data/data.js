@@ -1,3 +1,5 @@
+// Untuk mengambil data //
+
 import { supabase } from "../lib/supabase";
 
 async function getUserData() {
@@ -18,7 +20,7 @@ async function getWageData() {
         if (error) {
             throw error;
         }
-        return data;
+        return data[0];
     } catch (error) {
         throw error;
     }
