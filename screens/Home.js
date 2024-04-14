@@ -12,13 +12,16 @@ import { supabase } from "../lib/supabase";
 const Tab = createBottomTabNavigator();
 
 const Home = () => {
+    async function signOut() {
+        const { error } = await supabase.auth.signOut();
+    }
     return (
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
+            <Button title="sign out" onPress={signOut} />
             <Card />
             <PerformanceCard />
             <TaskCard />
             <WageCard />
-            <Button title="test" onPress={fetchData} />
         </View>
     );
 };

@@ -25,9 +25,7 @@ const Login = () => {
                 password,
             });
             if (error) throw error;
-
             console.log("Login successful:", user);
-            navigation.navigate("Home");
         } catch (error) {
             console.error("Login error:", error); // Log error for debugging
             Alert.alert("Login Gagal", error.message, [{ text: "OK" }]); // Inform user about the error
