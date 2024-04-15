@@ -8,11 +8,9 @@ import {
     Alert,
     ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { supabase } from "../lib/supabase";
 
 const Login = () => {
-    const navigation = useNavigation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false); // Loading state untuk render (tampilin) <ActivityIndicator> Component
