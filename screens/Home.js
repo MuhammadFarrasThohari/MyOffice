@@ -1,39 +1,52 @@
-import React from "react";
-import { View } from "react-native";
-import Card from "../components/Card";
-import PerformanceCard from "../components/PerformanceCard";
-import TaskCard from "../components/TaskCard";
-import WageCard from "../components/WageCard";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Button } from "react-native";
-import { supabase } from "../lib/supabase";
+import Performance from "./PerformanceDetail";
+import { getNilai } from "../data/data";
+import Home from "./HomePage";
 
 const Tab = createBottomTabNavigator();
 
-const Home = () => {
-    async function signOut() {
-        const { error } = await supabase.auth.signOut();
-    }
-    return (
-        <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
-            <Button title="sign out" onPress={signOut} />
-            <Card />
-            <PerformanceCard />
-            <TaskCard />
-            <WageCard />
-        </View>
-    );
-};
-
 function MyTabs() {
+    const [reviewLong, setReviewLong] = useState("");
+    const [reviewPendek, setReviewShort] = useState("");
+    const [Attendance, setAttendance] = useState(0);
+    const [Reliability, setReliability] = useState(0);
+    const [QoL, setQol] = useState(0);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await getNilai();
+                const { short_review, full_review, nilai, user_id } = data;
+                console.log(nilai.attendance);
+                setReviewShort(short_review);
+                setReviewLong(full_review);
+                setAttendance(nilai.attendance);
+                setReliability(nilai.Reliability);
+                setQol(nilai.QoL);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchData();
+    }, []);
+
     return (
         <Tab.Navigator>
-            <Tab.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }} // menghilangkan header
-            />
+            <Tab.Screen name="Home" options={{ headerShown: false }}>
+                {() => <Home reviewShort={reviewPendek} />}
+            </Tab.Screen>
+            <Tab.Screen name="Performance" options={{ headerShown: false }}>
+                {() => (
+                    <Performance
+                        full_review={reviewLong}
+                        nilaiAttendance={Attendance}
+                        nilaiReliability={Reliability}
+                        nilaiQoL={QoL}
+                    />
+                )}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 }

@@ -26,4 +26,20 @@ async function getWageData() {
     }
 }
 
-export default getWageData;
+async function getNilai() {
+    try {
+        const user = await getUserData();
+        const { data, error } = await supabase
+            .from("performance_users")
+            .select()
+            .eq("user_id", user);
+        if (error) {
+            console.log(error);
+        }
+        return data[0];
+    } catch (error) {
+        throw error;
+    }
+}
+
+export { getWageData, getNilai };

@@ -1,41 +1,23 @@
-import React, { useState } from "react";
-import { View, Image, StyleSheet, Button } from "react-native";
+import React from "react";
+import { View, Image, StyleSheet } from "react-native";
 
-const Stars = () => {
-    const [starCount, setStarCount] = useState(0);
-
-    const increaseStarCount = () => {
-        if (starCount < 5) {
-            setStarCount(starCount + 1);
-        }
-    };
-
-    const decreaseStarCount = () => {
-        if (starCount > 0) {
-            setStarCount(starCount - 1);
-        }
-    };
-
+const Stars = (props) => {
     return (
         <View style={styles.starsContainer}>
-            {[...Array(starCount)].map((_, index) => (
+            {[...Array(props.nilai)].map((_, index) => (
                 <Image
                     key={index}
                     source={require("../assets/Star_filled.png")}
                     style={styles.starImage}
                 />
             ))}
-            {[...Array(5 - starCount)].map((_, index) => (
+            {[...Array(5 - props.nilai)].map((_, index) => (
                 <Image
-                    key={index + starCount}
+                    key={index}
                     source={require("../assets/Star_blank.png")}
                     style={styles.starImage}
                 />
             ))}
-            <View style={styles.buttonContainer}>
-                <Button title="Tambah Bintang" onPress={increaseStarCount} />
-                <Button title="Kurangi Bintang" onPress={decreaseStarCount} />
-            </View>
         </View>
     );
 };
@@ -47,11 +29,7 @@ const styles = StyleSheet.create({
     },
     starImage: {
         marginHorizontal: 5,
-    },
-    buttonContainer: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        marginTop: 10,
+        marginVertical: 5,
     },
 });
 
