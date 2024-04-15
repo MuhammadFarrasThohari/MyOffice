@@ -1,9 +1,9 @@
 import { View, StyleSheet } from "react-native";
 
-const Kotak = () => {
+const Kotak = ({ progress }) => {
     return (
         <View style={styles.box}>
-            <View style={styles.boxDalam} />
+            <View style={[styles.boxDalam, { width: `${progress}%` }]} />
         </View>
     );
 };
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
         borderRadius: 12,
     },
     boxDalam: {
-        width: "80%",
         height: "100%",
         backgroundColor: "#535C91",
         borderRadius: 14,

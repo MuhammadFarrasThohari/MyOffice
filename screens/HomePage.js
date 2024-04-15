@@ -17,7 +17,12 @@ const Home = (props) => {
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
             <Button title="Sign Out" onPress={signOut} />
             <Card />
-            <PerformanceCard short_review={props.reviewShort} />
+            <PerformanceCard
+                short_review={props.reviewShort}
+                nilai1={props.nilaiAttendance}
+                nilai2={props.nilaiQoL}
+                nilai3={props.nilaiReliability}
+            />
             <TaskCard />
             <WageCard />
         </View>

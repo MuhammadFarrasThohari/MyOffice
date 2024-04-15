@@ -1,16 +1,45 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Kotak from "../components/ProgressBar";
 import cardStyles from "../assets/StyleCard";
 import Stars from "../components/Stars";
 
 const Performance = (props) => {
+    function nilaiOvr(nilai1, nilai2, nilai3) {
+        return Math.round(((nilai1 + nilai2 + nilai3) / 15) * 100);
+    }
+
+    // Menghitung nilai kinerja secara keseluruhan
+    const overallPerformance = nilaiOvr(
+        props.nilaiAttendance,
+        props.nilaiQoL,
+        props.nilaiReliability
+    );
+
+    // Menentukan kategori berdasarkan nilai kinerja
+    let performanceCategory;
+    if (overallPerformance >= 90) {
+        performanceCategory = "Excellent";
+    } else if (overallPerformance >= 80) {
+        performanceCategory = "Very Good";
+    } else if (overallPerformance >= 70) {
+        performanceCategory = "Good";
+    } else {
+        performanceCategory = "Needs Improvement";
+    }
+
     return (
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
             <View style={[cardStyles.container, styles.containerMargin]}>
                 <Text style={styles.textMargin}>Performance</Text>
-                <Text style={styles.textMargin}>80%</Text>
-                <Kotak style={styles.kotakMargin} />
-                <Text style={styles.textMargin}>Very Good Performance</Text>
+                <Text style={styles.textMargin}>{overallPerformance}%</Text>
+                <Kotak
+                    style={styles.kotakMargin}
+                    progress={overallPerformance}
+                />
+                {/* Menampilkan kategori kinerja */}
+                <Text style={styles.textMargin}>
+                    {performanceCategory} Performance
+                </Text>
                 <View
                     style={[
                         cardStyles.second_container,

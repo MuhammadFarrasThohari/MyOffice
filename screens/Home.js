@@ -19,7 +19,6 @@ function MyTabs() {
             try {
                 const data = await getNilai();
                 const { short_review, full_review, nilai, user_id } = data;
-                console.log(nilai.attendance);
                 setReviewShort(short_review);
                 setReviewLong(full_review);
                 setAttendance(nilai.attendance);
@@ -35,7 +34,14 @@ function MyTabs() {
     return (
         <Tab.Navigator>
             <Tab.Screen name="Home" options={{ headerShown: false }}>
-                {() => <Home reviewShort={reviewPendek} />}
+                {() => (
+                    <Home
+                        reviewShort={reviewPendek}
+                        nilaiAttendance={Attendance}
+                        nilaiReliability={Reliability}
+                        nilaiQoL={QoL}
+                    />
+                )}
             </Tab.Screen>
             <Tab.Screen name="Performance" options={{ headerShown: false }}>
                 {() => (
