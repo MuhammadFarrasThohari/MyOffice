@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import cardStyle from "../assets/StyleCard";
-import getWageData from "../data/data";
+import { getWageData } from "../data/data";
 
 // Wage Card untuk menampung data gaji karyawan
 
