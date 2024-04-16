@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Performance from "./PerformanceDetail";
 import { getNilai } from "../data/data";
 import Home from "./HomePage";
+import TaskDetail from "./TaskDetail";
 
 const Tab = createBottomTabNavigator();
 
@@ -52,6 +53,9 @@ function MyTabs() {
                         nilaiQoL={QoL}
                     />
                 )}
+            </Tab.Screen>
+            <Tab.Screen name="TaskDetail" options={{ headerShown: false }}>
+                {() => <TaskDetail />}
             </Tab.Screen>
         </Tab.Navigator>
     );
