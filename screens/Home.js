@@ -5,6 +5,7 @@ import Performance from "./PerformanceDetail";
 import { getNilai } from "../data/data";
 import Home from "./HomePage";
 import TaskDetail from "./TaskDetail";
+import { TaskProvider } from "../data/Context";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,9 +64,11 @@ function MyTabs() {
 
 const AppNavigator = () => {
     return (
-        <NavigationContainer independent={true}>
-            <MyTabs />
-        </NavigationContainer>
+        <TaskProvider>
+            <NavigationContainer independent={true}>
+                <MyTabs />
+            </NavigationContainer>
+        </TaskProvider>
     );
 };
 
