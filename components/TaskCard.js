@@ -1,3 +1,4 @@
+import React from "react";
 import { Text, StyleSheet, View } from "react-native";
 import cardStyles from "../assets/StyleCard";
 import TaskCheklist from "./TaskCheklist";
@@ -5,10 +6,11 @@ import { useTask } from "../data/Context";
 
 const TaskCard = () => {
     const { tasks, handleTaskCheck } = useTask();
+    const limitedTasks = tasks.slice(0, 3); // Mengambil 3 item pertama dari tasks
     return (
         <View style={cardStyles.container}>
             <Text>Task</Text>
-            {tasks.map((kerjaan, index) => (
+            {limitedTasks.map((kerjaan, index) => (
                 <TaskCheklist
                     key={index}
                     judul={kerjaan.task}
@@ -17,7 +19,7 @@ const TaskCard = () => {
                     onTaskCheck={handleTaskCheck}
                 />
             ))}
-            <Text>See More</Text>
+            {tasks.length > 3 && <Text>See More</Text>}
         </View>
     );
 };
