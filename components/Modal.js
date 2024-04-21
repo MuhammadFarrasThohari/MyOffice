@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { View, Text, Modal, Button, TextInput } from "react-native";
+import { addTask } from "../data/data";
+import { useTask } from "../data/Context";
 
 const InputModal = ({ visibility, pressHandler }) => {
     const [task, setTask] = useState("");
+    const { handleTaskCheck } = useTask();
 
     const onPressClose = () => {
         pressHandler();
     };
 
-    const onPressSave = () => {
-        console.log("task saved");
+    const onPressSave = async () => {
+        const task_baru = await addTask(task);
+        handleTaskCheck(
+            task_baru[0].task_id,
+            task_baru[0].is_done,
+            (newTask = task_baru[0])
+        );
     };
 
     return (

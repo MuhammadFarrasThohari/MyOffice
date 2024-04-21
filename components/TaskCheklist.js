@@ -23,10 +23,6 @@ const TaskCheklist = ({ judul, id, isChecked, onTaskCheck }) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#CFD6FF",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        padding: 10,
-        borderRadius: 14,
     },
 });
 

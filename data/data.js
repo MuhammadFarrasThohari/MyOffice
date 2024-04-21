@@ -89,4 +89,20 @@ async function updateTask(idTask, isChecked) {
     }
 }
 
-export { getWageData, getNilai, getTask, getTaskLimit, updateTask };
+async function addTask(task) {
+    try {
+        const user = await getUserData();
+        const { data, error } = await supabase
+            .from("task_users")
+            .insert({ id_user: user, task: task })
+            .select();
+        if (error) {
+            console.error(error);
+        }
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export { getWageData, getNilai, getTask, getTaskLimit, updateTask, addTask };

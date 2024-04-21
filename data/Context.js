@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getTask, updateTask } from "../data/data";
+import { getTask, updateTask, addTask } from "../data/data";
 
 const TaskContext = createContext();
 
@@ -19,18 +19,27 @@ export const TaskProvider = ({ children }) => {
         fetchData();
     }, []);
 
-    const handleTaskCheck = async (taskId, isChecked) => {
+    const handleTaskCheck = async (taskId, isChecked, newTask = null) => {
         try {
-            // Update task on the server
-            await updateTask(taskId, isChecked);
+            if (newTask == null) {
+                // Update task on the server
+                await updateTask(taskId, isChecked);
+            }
 
             // Update tasks state locally
-            const updatedTasks = tasks.map((task) => {
-                if (task.task_id === taskId) {
-                    return { ...task, is_done: isChecked };
-                }
-                return task;
-            });
+            let updatedTasks;
+            if (newTask) {
+                // Jika menambahkan tugas baru, tambahkan tugas tersebut ke daftar tugas yang ada
+                updatedTasks = [...tasks, newTask];
+            } else {
+                // Jika tidak menambahkan tugas baru, perbarui status tugas yang ada
+                updatedTasks = tasks.map((task) => {
+                    if (task.task_id === taskId) {
+                        return { ...task, is_done: isChecked };
+                    }
+                    return task;
+                });
+            }
             setTasks(updatedTasks);
         } catch (error) {
             console.error("Error updating task:", error);
