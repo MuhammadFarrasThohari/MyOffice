@@ -1,9 +1,10 @@
-import { View, Button } from "react-native";
+import { Button, ScrollView } from "react-native";
 import Card from "../components/Card";
 import PerformanceCard from "../components/PerformanceCard";
 import TaskCard from "../components/TaskCard";
 import WageCard from "../components/WageCard";
 import { supabase } from "../lib/supabase";
+import Constant from "expo-constants";
 
 const Home = (props) => {
     async function signOut() {
@@ -14,7 +15,13 @@ const Home = (props) => {
     }
 
     return (
-        <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
+        <ScrollView
+            style={{
+                backgroundColor: "#070F2B",
+                flex: 1,
+                paddingTop: Constant.statusBarHeight,
+            }}
+        >
             <Button title="Sign Out" onPress={signOut} />
             <Card />
             <PerformanceCard
@@ -25,7 +32,7 @@ const Home = (props) => {
             />
             <TaskCard />
             <WageCard />
-        </View>
+        </ScrollView>
     );
 };
 

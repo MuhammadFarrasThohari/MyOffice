@@ -9,6 +9,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 import { supabase } from "../lib/supabase";
+import Constant from "expo-constants";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#070F2B",
         justifyContent: "center",
+        paddingTop: Constant.statusBarHeight,
     },
     loginCard: {
         marginVertical: 15,

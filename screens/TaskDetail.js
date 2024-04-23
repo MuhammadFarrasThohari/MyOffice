@@ -5,6 +5,7 @@ import TaskCheklist from "../components/TaskCheklist";
 import FloatingButton from "../components/FloatingButton";
 import InputModal from "../components/Modal";
 import { useState } from "react";
+import Constant from "expo-constants";
 const TaskDetail = () => {
     const { tasks, handleTaskCheck } = useTask();
     const [modalVisible, setModalVisible] = useState(false);
@@ -18,7 +19,13 @@ const TaskDetail = () => {
     }
 
     return (
-        <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
+        <View
+            style={{
+                backgroundColor: "#070F2B",
+                flex: 1,
+                paddingTop: Constant.statusBarHeight,
+            }}
+        >
             <ScrollView style={cardStyles.container}>
                 <Text>Task</Text>
                 {tasks.map((kerjaan, index) => (

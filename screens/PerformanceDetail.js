@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import Kotak from "../components/ProgressBar";
 import cardStyles from "../assets/StyleCard";
 import Stars from "../components/Stars";
+import Constant from "expo-constants";
 
 const Performance = (props) => {
     function nilaiOvr(nilai1, nilai2, nilai3) {
@@ -28,7 +29,13 @@ const Performance = (props) => {
     }
 
     return (
-        <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
+        <View
+            style={{
+                backgroundColor: "#070F2B",
+                flex: 1,
+                paddingTop: Constant.statusBarHeight,
+            }}
+        >
             <View style={[cardStyles.container, styles.containerMargin]}>
                 <Text style={styles.textMargin}>Performance</Text>
                 <Text style={styles.textMargin}>{overallPerformance}%</Text>
