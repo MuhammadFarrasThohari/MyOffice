@@ -14,6 +14,8 @@ Pertama buat akun supabase dan buatlah project di dalam supabase (supabase.com)
 
 Cari Supabase Anon key dan Supabase URL project
 
+Selanjutnya buka file lib/supabase.js
+
 Kemudian ubah nilai SUPABASE_URL dan SUPABASE_ANON_KEY dengan url dan key yang telah dibuat
 ![alt text](/README-asset/image.png)
 
