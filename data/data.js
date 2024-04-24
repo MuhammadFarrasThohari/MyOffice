@@ -105,4 +105,37 @@ async function addTask(task) {
     }
 }
 
-export { getWageData, getNilai, getTask, getTaskLimit, updateTask, addTask };
+async function getProfile() {
+    try {
+        const user = await getUserData();
+        const { data, error } = await supabase
+            .from("profile_users")
+            .select()
+            .eq("user_id", user);
+
+        return ({ nama_users, jabatan_users, foto_user } = data[0]);
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateProfile(newNama, newJabatan, newFoto) {
+    try {
+        const user = await getUserData();
+        const { error } = await supabase
+            .from("profile_users")
+            .update({ nama_users: newNama })
+            .eq("user_id", user);
+    } catch (error) {}
+}
+
+export {
+    getWageData,
+    getNilai,
+    getTask,
+    getTaskLimit,
+    updateTask,
+    addTask,
+    getProfile,
+    updateProfile,
+};

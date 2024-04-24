@@ -6,6 +6,8 @@ import { getNilai } from "../data/data";
 import Home from "./HomePage";
 import TaskDetail from "./TaskDetail";
 import { TaskProvider } from "../data/Context";
+import { ProfileProvider } from "../data/ProfileContext";
+import EditProfile from "./EditProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,6 +60,9 @@ function MyTabs() {
             <Tab.Screen name="TaskDetail" options={{ headerShown: false }}>
                 {() => <TaskDetail />}
             </Tab.Screen>
+            <Tab.Screen name="Edit Profile" options={{ headerShown: false }}>
+                {() => <EditProfile />}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 }
@@ -65,9 +70,11 @@ function MyTabs() {
 const AppNavigator = () => {
     return (
         <TaskProvider>
-            <NavigationContainer independent={true}>
-                <MyTabs />
-            </NavigationContainer>
+            <ProfileProvider>
+                <NavigationContainer independent={true}>
+                    <MyTabs />
+                </NavigationContainer>
+            </ProfileProvider>
         </TaskProvider>
     );
 };

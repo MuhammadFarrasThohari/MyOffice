@@ -1,22 +1,30 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import card from "../assets/StyleCard";
 
+import { useProfile } from "../data/ProfileContext";
+import { useNavigation } from "@react-navigation/native";
+
 const Card = () => {
+    const { nama, jabatan, foto } = useProfile();
+    const navigation = useNavigation();
+
+    const navigateToEditProfile = () => {
+        navigation.navigate("Edit Profile");
+    };
+
     return (
         <View style={card.container}>
             <View style={styles.rowCard}>
-                <Image
-                    source={require("../assets/snack-icon.png")}
-                    style={styles.gambar}
-                />
+                <Image source={foto} style={styles.gambar} />
                 <View>
-                    <Text> John Doe </Text>
-                    <Text> Chief Executive Officer </Text>
+                    <Text>{nama}</Text>
+                    <Text>{jabatan}</Text>
                 </View>
-                <Image
-                    source={require("../assets/snack-icon.png")}
-                    style={styles.gambar}
-                />
+                <Image source={foto} style={styles.gambar} />
+                <TouchableOpacity onPress={navigateToEditProfile}>
+                    <Text>edit profile</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
