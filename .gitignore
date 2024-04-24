@@ -34,3 +34,6 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 local/key.js
+
+#Readme Assets
+README-asset/
