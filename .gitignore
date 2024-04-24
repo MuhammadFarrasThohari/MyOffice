@@ -35,5 +35,3 @@ yarn-error.*
 *.tsbuildinfo
 local/key.js
 
-#Readme Assets
-README-asset/
