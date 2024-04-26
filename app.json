@@ -1,26 +1,30 @@
 {
-    "expo": {
-        "name": "MyOffice",
-        "slug": "MyOffice",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/snack-icon.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/snack-icon.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/snack-icon.png",
-                "backgroundColor": "#ffffff"
-            }
-        },
-        "web": {}
-    }
+  "expo": {
+    "name": "MyOffice",
+    "slug": "MyOffice",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/snack-icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/snack-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/snack-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {},
+    "sdkVersion": "50.0.0"
+  },
+  "name": "myoffice"
 }
