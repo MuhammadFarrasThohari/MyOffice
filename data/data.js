@@ -1,6 +1,7 @@
 // Untuk mengambil data //
 
 import { supabase } from "../lib/supabase";
+import { decode } from "base64-arraybuffer";
 
 async function getUserData() {
     const { data, error } = await supabase.auth.getSession();
@@ -119,7 +120,7 @@ async function getProfile() {
     }
 }
 
-async function updateProfile(newNama, newJabatan, newFoto) {
+async function updateProfile(newNama) {
     try {
         const user = await getUserData();
         const { error } = await supabase
@@ -127,6 +128,23 @@ async function updateProfile(newNama, newJabatan, newFoto) {
             .update({ nama_users: newNama })
             .eq("user_id", user);
     } catch (error) {}
+}
+
+async function changePhoto(newFoto) {
+    try {
+        const user = await getUserData();
+        const { data, error } = await supabase.storage
+            .from("profileusers")
+            .upload(
+                `${user}/foto/${Date.now().toString()}.jpg`,
+                decode(newFoto),
+                { contentType: "image/jpg" }
+            );
+
+        console.log(data, error);
+    } catch (error) {
+        throw error;
+    }
 }
 
 export {
@@ -138,4 +156,5 @@ export {
     addTask,
     getProfile,
     updateProfile,
+    changePhoto,
 };
