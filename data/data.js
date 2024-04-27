@@ -114,7 +114,7 @@ async function getProfile() {
             .select()
             .eq("user_id", user);
 
-        return ({ nama_users, jabatan_users, foto_user } = data[0]);
+        return ({ nama_users, jabatan_users, foto_users } = data[0]);
     } catch (error) {
         throw error;
     }
@@ -130,18 +130,55 @@ async function updateProfile(newNama) {
     } catch (error) {}
 }
 
+async function getUrlPhoto(path) {
+    try {
+        const { data, error } = await supabase.storage
+            .from("profileusers")
+            .getPublicUrl(path);
+        if (error) {
+            throw error;
+        }
+        return data.publicUrl;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+async function storePhoto(url) {
+    try {
+        const user = await getUserData();
+        const { data, error } = await supabase
+            .from("profile_users") // Pastikan nama tabel yang benar
+            .update({ foto_users: url })
+            .eq("user_id", user);
+        if (error) {
+            throw error;
+        }
+        console.log("Berhasil update foto: ", data);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 async function changePhoto(newFoto) {
     try {
         const user = await getUserData();
         const { data, error } = await supabase.storage
-            .from("profileusers")
+            .from("profileusers") // Pastikan nama bucket yang benar
             .upload(
                 `${user}/foto/${Date.now().toString()}.jpg`,
                 decode(newFoto),
                 { contentType: "image/jpg" }
             );
-
-        console.log(data, error);
+        if (error) {
+            throw error;
+        }
+        console.log(data);
+        const url = await getUrlPhoto(data.path);
+        await storePhoto(url);
+        return url;
     } catch (error) {
         throw error;
     }

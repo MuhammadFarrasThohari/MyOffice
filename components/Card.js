@@ -22,10 +22,10 @@ const Card = () => {
                     <Text>{jabatan}</Text>
                 </View>
                 <Image source={foto} style={styles.gambar} />
-                <TouchableOpacity onPress={navigateToEditProfile}>
-                    <Text>edit profile</Text>
-                </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={navigateToEditProfile}>
+                <Text>edit profile</Text>
+            </TouchableOpacity>
         </View>
     );
 };

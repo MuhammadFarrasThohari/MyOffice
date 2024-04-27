@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getProfile, updateProfile } from "../data/data";
+import { changePhoto, getProfile, updateProfile } from "../data/data";
 
 const ProfileContext = createContext();
 
@@ -11,10 +11,14 @@ export const ProfileProvider = ({ children }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { nama_users, jabatan_users, foto_user } =
+                const { nama_users, jabatan_users, foto_users } =
                     await getProfile();
                 setNama(nama_users);
                 setJabatan(jabatan_users);
+                if (foto_users !== null) {
+                    setFoto({ uri: foto_users });
+                }
+                console.log("Foto: ", foto_users);
             } catch (error) {
                 console.error(error);
             }
@@ -31,8 +35,18 @@ export const ProfileProvider = ({ children }) => {
         }
     };
 
+    const updateFoto = async (newFoto) => {
+        try {
+            const fotoBaru = await changePhoto(newFoto);
+            setFoto({ uri: fotoBaru }); // Mengatur foto baru setelah berhasil diubah
+        } catch (error) {
+            console.error("Error updating photo:", error);
+        }
+    };
     return (
-        <ProfileContext.Provider value={{ nama, jabatan, foto, updateNama }}>
+        <ProfileContext.Provider
+            value={{ nama, jabatan, foto, updateNama, updateFoto }}
+        >
             {children}
         </ProfileContext.Provider>
     );

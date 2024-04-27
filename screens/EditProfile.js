@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import { useProfile } from "../data/ProfileContext";
 import * as ImagePicker from "expo-image-picker";
-import { changePhoto } from "../data/data";
 import * as FileSystem from "expo-file-system";
 
 const EditProfile = () => {
-    const { nama, updateNama } = useProfile();
+    const { nama, updateNama, updateFoto } = useProfile();
     const [newNama, setNewNama] = useState(nama);
 
     const handleSave = () => {
@@ -26,7 +25,7 @@ const EditProfile = () => {
                 const base64 = await FileSystem.readAsStringAsync(img.uri, {
                     encoding: "base64",
                 });
-                await changePhoto(base64);
+                await updateFoto(base64);
             }
         } catch (error) {
             Alert.alert("foto tidak dapat diganti: ", error);
