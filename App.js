@@ -4,72 +4,59 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
 import Home from "./screens/Home";
-import AdminHome from "./Admin/Screens/AdminHome";
 import { supabase } from "./lib/supabase";
+import TestScreen from "./screens/TestScreens";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    const [session, setSession] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(null);
+    const [session, setSession] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        const listener = supabase.auth.onAuthStateChange(
-            async (event, session) => {
-                if (event === "SIGNED_IN") {
-                    console.log("User signed in:", session.user.id);
-                    const adminStatus = await checkIsAdmin(session.user.id);
-                    setIsAdmin(adminStatus);
-                    setSession(session);
-                }
-                if (event === "SIGNED_OUT") {
-                    setSession(null);
-                    setIsAdmin(false);
-                }
+        const listener = supabase.auth.onAuthStateChange((event, session) => {
+            console.log("listener: ", event);
+            if (event === "SIGNED_IN") {
+                console.log("User signed in:", session.user.id);
+                checkAdmin(session.user.id);
             }
-        );
+            if (event === "SIGNED_OUT") {
+                setSession(false);
+                setIsAdmin(false);
+            }
+        });
 
         return () => {
             listener.unsubscribe();
         };
     }, []);
 
-    const checkIsAdmin = async (userId) => {
-        try {
-            const { data, error } = await supabase
-                .from("profile_users")
-                .select("isAdmin")
-                .eq("user_id", userId)
-                .single();
-            if (error) {
-                console.error("Error fetching profile:", error.message);
-                return false;
-            } else {
-                console.log("Check is Admin", data.isAdmin);
-                return data.isAdmin;
-            }
-        } catch (error) {
-            console.error("Error fetching profile:", error.message);
-            return false;
-        }
+    const checkAdmin = (userId) => {
+        const { data, error } = supabase
+            .from("profile_users")
+            .select("isAdmin")
+            .eq("user_id", userId)
+            .single()
+            .then((data) => {
+                setIsAdmin(data.data.isAdmin);
+            })
+            .then(() => {
+                setSession(true);
+            });
     };
 
-    console.log(isAdmin);
+    console.log("isAdmin: ", isAdmin);
+    console.log("session: ", session);
 
     return (
         <NavigationContainer>
             <Stack.Navigator>
                 {session ? (
-                    isAdmin !== null ? (
-                        isAdmin ? (
-                            <Stack.Screen
-                                name="AdminHome"
-                                component={AdminHome}
-                            />
-                        ) : (
-                            <Stack.Screen name="Home" component={Home} />
-                        )
-                    ) : null
+                    isAdmin ? (
+                        <Stack.Screen name="Test" component={TestScreen} />
+                    ) : (
+                        <Stack.Screen name="Home" component={Home} />
+                    )
                 ) : (
                     <Stack.Screen name="Login" component={Login} />
                 )}
