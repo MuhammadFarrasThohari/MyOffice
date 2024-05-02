@@ -23,7 +23,6 @@ const TaskDetail = () => {
             style={{
                 backgroundColor: "#070F2B",
                 flex: 1,
-                paddingTop: Constant.statusBarHeight,
             }}
         >
             <ScrollView style={cardStyles.container}>

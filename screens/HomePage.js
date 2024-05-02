@@ -19,7 +19,6 @@ const Home = (props) => {
             style={{
                 backgroundColor: "#070F2B",
                 flex: 1,
-                paddingTop: Constant.statusBarHeight,
             }}
         >
             <Button title="Sign Out" onPress={signOut} />

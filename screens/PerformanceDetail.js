@@ -33,7 +33,6 @@ const Performance = (props) => {
             style={{
                 backgroundColor: "#070F2B",
                 flex: 1,
-                paddingTop: Constant.statusBarHeight,
             }}
         >
             <View style={[cardStyles.container, styles.containerMargin]}>

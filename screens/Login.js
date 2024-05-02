@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#070F2B",
         justifyContent: "center",
-        paddingTop: Constant.statusBarHeight,
     },
     loginCard: {
         marginVertical: 15,
