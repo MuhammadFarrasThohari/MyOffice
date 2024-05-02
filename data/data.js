@@ -113,8 +113,7 @@ async function getProfile() {
             .from("profile_users")
             .select()
             .eq("user_id", user);
-
-        return ({ nama_users, jabatan_users, foto_users } = data[0]);
+        return ({ nama_users, jabatan_users, foto_users, isAdmin } = data[0]);
     } catch (error) {
         throw error;
     }
