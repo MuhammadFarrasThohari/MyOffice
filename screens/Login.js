@@ -19,14 +19,14 @@ const Login = () => {
     async function signIn() {
         setIsLoading(true);
         try {
-            const { user, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabase.auth.signInWithPassword({
                 email,
                 password,
             });
             if (error) {
                 Alert.alert("Login Gagal", error.message, [{ text: "OK" }]);
             } else {
-                console.log("Login successful:", user);
+                console.log("Login successful:", data);
             }
         } catch (error) {
             console.error("Login error:", error); // Log error for debugging
