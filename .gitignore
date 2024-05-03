@@ -36,3 +36,6 @@ yarn-error.*
 local/key.js
 
 android/
+
+#block key
+/lib/key.js
