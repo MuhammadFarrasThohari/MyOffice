@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
 import Home from "./screens/Home";
 import { supabase } from "./lib/supabase";
-import TestScreen from "./screens/TestScreens";
+import AdminNav from "./Admin/Screens/AdminNav";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +53,7 @@ export default function App() {
             <Stack.Navigator>
                 {session ? (
                     isAdmin ? (
-                        <Stack.Screen name="Test" component={TestScreen} />
+                        <Stack.Screen name="Admin" component={AdminNav} />
                     ) : (
                         <Stack.Screen name="Home" component={Home} />
                     )
