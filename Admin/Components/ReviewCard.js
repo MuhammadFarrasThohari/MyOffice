@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import card from "../../assets/StyleCard";
 import CircularProgress from "react-native-circular-progress-indicator";
+import { useNavigation } from "@react-navigation/native";
 
 const ReviewCard = () => {
+    const navigation = useNavigation();
     return (
         <View style={card.container}>
             <Text>Employee Review</Text>
@@ -15,7 +17,9 @@ const ReviewCard = () => {
                 clockwise={false}
             />
             <Text>60% employee has been reviewed</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Review Employee")}
+            >
                 <Text>See more</Text>
             </TouchableOpacity>
         </View>
