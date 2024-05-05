@@ -1,33 +1,41 @@
+// EmployeeCard.js
+import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const EmployeeCard = () => {
+const EmployeeCard = ({ metadata }) => {
+    // , {profile: {nama: nama_users, jabatan: jabatan_users}, reviewValue:{bintang:} }
     const navigation = useNavigation();
+    const { nama_users, jabatan_users, foto_users, performance_users } =
+        metadata; // Destructure properti dari employee
+
     return (
-        <View style={styles.container}>
-            <Image
-                source={require("../../assets/snack-icon.png")}
-                style={styles.gambar}
-            />
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() =>
+                navigation.navigate("Review Detail", {
+                    profile: { nama: nama_users, jabatan: jabatan_users },
+                    reviewValue: performance_users,
+                })
+            }
+        >
+            <Image source={{ uri: foto_users }} style={styles.gambar} />
             <View style={styles.content}>
-                <Text style={styles.name}>John Doe</Text>
-                <Text style={styles.position}>Chief Executive Officer</Text>
+                <Text style={styles.name}>{nama_users}</Text>
+                <Text style={styles.position}>{jabatan_users}</Text>
             </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Review Detail")}
-            >
-                <Ionicons
-                    name="chevron-forward-outline"
-                    size={24}
-                    color="black"
-                />
-            </TouchableOpacity>
-        </View>
+            <Ionicons
+                name="chevron-forward-outline"
+                size={24}
+                color="black"
+                style={styles.icon}
+            />
+        </TouchableOpacity>
     );
 };
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
@@ -35,6 +43,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#CFD6FF",
         padding: 10,
         borderRadius: 16,
+        marginBottom: 10, // Tambahkan margin bawah agar card terpisah
     },
     content: {
         flex: 1,
@@ -48,7 +57,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "gray",
     },
-    button: {
+    icon: {
         marginLeft: 10,
     },
     gambar: {
