@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native"; // Import TouchableOpacity
 import cardStyles from "../assets/StyleCard";
 import TaskCheklist from "./TaskCheklist";

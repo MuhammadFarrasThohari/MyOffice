@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import cardStyles from "../assets/StyleCard";
 import ProgressBar from "./ProgressBar";

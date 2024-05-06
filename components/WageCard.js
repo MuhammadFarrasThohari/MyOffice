@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import cardStyle from "../assets/StyleCard";
 import { getWageData } from "../data/data";
