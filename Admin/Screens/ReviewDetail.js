@@ -1,4 +1,3 @@
-// ReviewDetail.js
 import React, { useState } from "react";
 import {
     View,
@@ -13,29 +12,44 @@ import { useNavigation } from "@react-navigation/native";
 import card from "../../assets/StyleCard";
 import Stars from "../../components/Stars";
 import InputModal from "../Components/Modal";
+import { useEmployee } from "../../data/EmployeeContext";
 
 const ReviewDetail = ({ route }) => {
+    const { updateReview } = useEmployee();
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const { nama, jabatan } = route.params.profile;
     const {
         nilai = {},
-        full_review = "",
-        short_review = "",
+        full_review: initialFullReview = "",
+        short_review: initialShortReview = "",
     } = route.params.reviewValue || {};
     const [attendance, setAttendance] = useState(nilai.Attendance || 0);
     const [qow, setQow] = useState(nilai.QoW || 0);
     const [reliability, setReliability] = useState(nilai.Reliability || 0);
+    const [fullReview, setFullReview] = useState(initialFullReview);
+    const [shortReview, setShortReview] = useState(initialShortReview);
 
     const openModal = () => setModalVisible(true);
     const closeModal = () => setModalVisible(false);
 
-    const updateReview = (values) => {
+    const updateReviewState = (values) => {
         setAttendance(values.Attendance || 0);
         setQow(values.QoW || 0);
         setReliability(values.Reliability || 0);
     };
 
+    const SaveReview = () => {
+        updateReview(
+            fullReview,
+            shortReview,
+            attendance,
+            qow,
+            reliability,
+            route.params.profile.id
+        );
+        navigation.goBack();
+    };
     return (
         <View style={styles.container}>
             <View style={styles.cardContainer}>
@@ -69,12 +83,17 @@ const ReviewDetail = ({ route }) => {
                 <View style={styles.reviewContainer}>
                     <TextInput
                         placeholder="Short Review"
-                        value={short_review}
+                        value={shortReview}
+                        onChangeText={setShortReview}
                     />
                 </View>
                 <Text style={styles.subtitle}>Employee Full Review</Text>
                 <View style={styles.reviewContainer}>
-                    <TextInput placeholder="Full Review" value={full_review} />
+                    <TextInput
+                        placeholder="Full Review"
+                        value={fullReview}
+                        onChangeText={setFullReview}
+                    />
                 </View>
                 <TouchableOpacity
                     style={styles.backButton}
@@ -82,11 +101,12 @@ const ReviewDetail = ({ route }) => {
                 >
                     <Text style={styles.backButtonText}>Back</Text>
                 </TouchableOpacity>
+                <Button title="Save" onPress={SaveReview} />
             </View>
             <InputModal
                 visibility={modalVisible}
                 pressHandler={closeModal}
-                updateReview={updateReview}
+                updateReview={updateReviewState}
             />
         </View>
     );

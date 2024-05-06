@@ -1,9 +1,9 @@
-import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AdminScreen from "./AdminScreen";
 import { ProfileProvider } from "../../data/ProfileContext";
 import ReviewNav from "./ReviewNav";
+import { EmployeeProvider } from "../../data/EmployeeContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,11 +22,13 @@ const MyTabs = () => {
 
 const AdminNav = () => {
     return (
-        <ProfileProvider>
-            <NavigationContainer independent={true}>
-                <MyTabs />
-            </NavigationContainer>
-        </ProfileProvider>
+        <EmployeeProvider>
+            <ProfileProvider>
+                <NavigationContainer independent={true}>
+                    <MyTabs />
+                </NavigationContainer>
+            </ProfileProvider>
+        </EmployeeProvider>
     );
 };
 

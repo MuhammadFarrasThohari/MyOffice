@@ -7,15 +7,24 @@ import { useNavigation } from "@react-navigation/native";
 const EmployeeCard = ({ metadata }) => {
     // , {profile: {nama: nama_users, jabatan: jabatan_users}, reviewValue:{bintang:} }
     const navigation = useNavigation();
-    const { nama_users, jabatan_users, foto_users, performance_users } =
-        metadata; // Destructure properti dari employee
+    const {
+        user_id,
+        nama_users,
+        jabatan_users,
+        foto_users,
+        performance_users,
+    } = metadata; // Destructure properti dari employee
 
     return (
         <TouchableOpacity
             style={styles.container}
             onPress={() =>
                 navigation.navigate("Review Detail", {
-                    profile: { nama: nama_users, jabatan: jabatan_users },
+                    profile: {
+                        id: user_id,
+                        nama: nama_users,
+                        jabatan: jabatan_users,
+                    },
                     reviewValue: performance_users,
                 })
             }
