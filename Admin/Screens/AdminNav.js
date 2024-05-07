@@ -4,6 +4,8 @@ import AdminScreen from "./AdminScreen";
 import { ProfileProvider } from "../../data/ProfileContext";
 import ReviewNav from "./ReviewNav";
 import { EmployeeProvider } from "../../data/EmployeeContext";
+import WageScreen from "./WageScreen";
+import { EmployeeWageProvider } from "../../data/GajiContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,6 +18,9 @@ const MyTabs = () => {
             <Tab.Screen name="Review Employee" options={{ headerShown: false }}>
                 {() => <ReviewNav />}
             </Tab.Screen>
+            <Tab.Screen name="Wage Employee" options={{ headerShown: false }}>
+                {() => <WageScreen />}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 };
@@ -23,11 +28,13 @@ const MyTabs = () => {
 const AdminNav = () => {
     return (
         <EmployeeProvider>
-            <ProfileProvider>
-                <NavigationContainer independent={true}>
-                    <MyTabs />
-                </NavigationContainer>
-            </ProfileProvider>
+            <EmployeeWageProvider>
+                <ProfileProvider>
+                    <NavigationContainer independent={true}>
+                        <MyTabs />
+                    </NavigationContainer>
+                </ProfileProvider>
+            </EmployeeWageProvider>
         </EmployeeProvider>
     );
 };
