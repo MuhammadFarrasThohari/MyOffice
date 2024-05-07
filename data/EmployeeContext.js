@@ -43,32 +43,21 @@ export const EmployeeProvider = ({ children }) => {
         getEmployee();
     }, []);
 
-    const getEmployee = async () => {
-        try {
-            const { data, error } = await supabase
-                .from("profile_users")
-                .select(
-                    `user_id, nama_users, jabatan_users, foto_users, performance_users(nilai, short_review, full_review)`
-                )
-                .eq("isAdmin", false);
-
-            if (error) {
-                console.error("Error fetching employee data:", error.message);
-                return;
-            }
-
-            const notReviewed = data.filter(
-                (employee) => !employee.performance_users
+    const updateStateEmployee = (id, data, isReviewed) => {
+        if (isReviewed) {
+            // Jika karyawan telah direview, hapus dari state notReviewedEmployee
+            setNotReviewedEmployee((prevEmployees) =>
+                prevEmployees.filter((employee) => employee.user_id !== id)
             );
-
-            const reviewed = data.filter(
-                (employee) => employee.performance_users
+            // Tambahkan ke state reviewedEmployee
+            setReviewedEmployee((prevEmployees) => [...prevEmployees, data]);
+        } else {
+            // Jika karyawan belum direview, hapus dari state reviewedEmployee
+            setReviewedEmployee((prevEmployees) =>
+                prevEmployees.filter((employee) => employee.user_id !== id)
             );
-
-            setNotReviewedEmployee(notReviewed);
-            setReviewedEmployee(reviewed);
-        } catch (error) {
-            console.error("Error fetching employee data:", error.message);
+            // Tambahkan ke state notReviewedEmployee
+            setNotReviewedEmployee((prevEmployees) => [...prevEmployees, data]);
         }
     };
 
@@ -78,7 +67,10 @@ export const EmployeeProvider = ({ children }) => {
         attendance,
         qow,
         reliability,
-        id
+        id,
+        nama_users,
+        jabatan_users,
+        foto_users
     ) => {
         try {
             // Cek apakah ada record untuk pengguna dengan user_id tertentu
@@ -135,7 +127,25 @@ export const EmployeeProvider = ({ children }) => {
             }
 
             // Setelah update atau insert selesai, perbarui state dari employee
-            getEmployee();
+            updateStateEmployee(
+                id,
+                {
+                    user_id: id,
+                    nama_users: nama_users,
+                    jabatan_users: jabatan_users,
+                    foto_users: foto_users,
+                    performance_users: {
+                        full_review,
+                        short_review,
+                        nilai: {
+                            Attendance: attendance,
+                            QoW: qow,
+                            Reliability: reliability,
+                        },
+                    },
+                },
+                true
+            ); // Tandai sebagai telah direview
         } catch (error) {
             console.error("Error updating/inserting review:", error.message);
         }

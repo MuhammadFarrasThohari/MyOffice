@@ -5,6 +5,8 @@ import { useEmployee } from "../../data/EmployeeContext";
 
 const ReviewScreen = () => {
     const { reviewedEmployee, notReviewedEmployee } = useEmployee();
+    console.table(reviewedEmployee);
+    console.table(notReviewedEmployee);
     return (
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
             <Text>Review Employee</Text>

@@ -18,7 +18,7 @@ const ReviewDetail = ({ route }) => {
     const { updateReview } = useEmployee();
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
-    const { nama, jabatan } = route.params.profile;
+    const { nama, jabatan, foto_users } = route.params.profile;
     const {
         nilai = {},
         full_review: initialFullReview = "",
@@ -46,7 +46,10 @@ const ReviewDetail = ({ route }) => {
             attendance,
             qow,
             reliability,
-            route.params.profile.id
+            route.params.profile.id,
+            nama,
+            jabatan,
+            foto_users
         );
         navigation.goBack();
     };

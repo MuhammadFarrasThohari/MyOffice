@@ -24,6 +24,7 @@ const EmployeeCard = ({ metadata }) => {
                         id: user_id,
                         nama: nama_users,
                         jabatan: jabatan_users,
+                        foto_users: foto_users,
                     },
                     reviewValue: performance_users,
                 })
