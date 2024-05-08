@@ -42,3 +42,5 @@ android/
 
 #Block SupabasAdmin
 /Admin/supabaseAdmin.js
+.vscode/settings.json
+eas.json
