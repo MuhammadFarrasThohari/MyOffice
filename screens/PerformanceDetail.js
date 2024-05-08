@@ -2,7 +2,6 @@ import { View, Text, StyleSheet } from "react-native";
 import Kotak from "../components/ProgressBar";
 import cardStyles from "../assets/StyleCard";
 import Stars from "../components/Stars";
-import Constant from "expo-constants";
 
 const Performance = (props) => {
     function nilaiOvr(nilai1, nilai2, nilai3) {
