@@ -39,3 +39,6 @@ android/
 
 #block key
 /lib/key.js
+
+#Block SupabasAdmin
+/Admin/supabaseAdmin.js
