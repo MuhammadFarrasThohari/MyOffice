@@ -25,9 +25,9 @@ function MyTabs() {
                 const { short_review, full_review, nilai, user_id } = data;
                 setReviewShort(short_review);
                 setReviewLong(full_review);
-                setAttendance(nilai.attendance);
+                setAttendance(nilai.Attendance);
                 setReliability(nilai.Reliability);
-                setQol(nilai.QoL);
+                setQol(nilai.QoW);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
