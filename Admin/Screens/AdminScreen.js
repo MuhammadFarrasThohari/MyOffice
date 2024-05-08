@@ -1,10 +1,13 @@
-import { View, Text, Button, ScrollView } from "react-native";
+import { Text, Button, ScrollView } from "react-native";
 import { supabase } from "../../lib/supabase";
-import Card from "../../components/Card";
 import ReviewCard from "../Components/ReviewCard";
 import WageCard from "../Components/WageCard";
+import { useState } from "react";
+import RegisterModal from "../Components/RegisterModal";
+import Card from "../Components/AdminProfileCard";
 
 const AdminScreen = () => {
+    const [modalVisible, setModalVisible] = useState(false);
     return (
         <ScrollView
             style={{
@@ -18,13 +21,17 @@ const AdminScreen = () => {
             <Button
                 title="register employee"
                 onPress={() => {
-                    console.log("employee registered");
+                    setModalVisible(true);
                 }}
             />
             <Text>Admin Screen</Text>
             <Button
                 title="Logout"
                 onPress={async () => await supabase.auth.signOut()}
+            />
+            <RegisterModal
+                visible={modalVisible}
+                close={() => setModalVisible(false)}
             />
         </ScrollView>
     );

@@ -1,7 +1,5 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import WageModal from "./WageModal";
 import { useEmployeeWage } from "../../data/GajiContext";

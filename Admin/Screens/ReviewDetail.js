@@ -7,6 +7,7 @@ import {
     StyleSheet,
     Button,
     TextInput,
+    ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import card from "../../assets/StyleCard";
@@ -54,7 +55,7 @@ const ReviewDetail = ({ route }) => {
         navigation.goBack();
     };
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.cardContainer}>
                 <Text style={styles.title}>Employee Review Details</Text>
                 <Text style={styles.subtitle}>Employee Profile</Text>
@@ -111,7 +112,7 @@ const ReviewDetail = ({ route }) => {
                 pressHandler={closeModal}
                 updateReview={updateReviewState}
             />
-        </View>
+        </ScrollView>
     );
 };
 
