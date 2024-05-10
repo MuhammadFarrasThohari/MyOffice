@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { getTask, updateTask } from "../data/data";
+import { supabase } from "../lib/supabase";
 
 const TaskContext = createContext();
 
@@ -46,8 +47,31 @@ export const TaskProvider = ({ children }) => {
         }
     };
 
+    const handleDelete = async (taskId) => {
+        try {
+            // Hapus tugas di server
+            const { error } = await supabase
+                .from("task_users")
+                .delete()
+                .eq("task_id", taskId);
+
+            if (error) {
+                throw new Error(error.message);
+            } else {
+                const updatedTasks = tasks.filter(
+                    (task) => task.task_id !== taskId
+                );
+                setTasks(updatedTasks);
+            }
+
+            // Hapus tugas dari state lokal
+        } catch (error) {
+            console.error("Error deleting task:", error);
+        }
+    };
+
     return (
-        <TaskContext.Provider value={{ tasks, handleTaskCheck }}>
+        <TaskContext.Provider value={{ tasks, handleTaskCheck, handleDelete }}>
             {children}
         </TaskContext.Provider>
     );

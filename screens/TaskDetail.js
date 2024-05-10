@@ -5,9 +5,8 @@ import TaskCheklist from "../components/TaskCheklist";
 import FloatingButton from "../components/FloatingButton";
 import InputModal from "../components/Modal";
 import { useState } from "react";
-import Constant from "expo-constants";
 const TaskDetail = () => {
-    const { tasks, handleTaskCheck } = useTask();
+    const { tasks, handleTaskCheck, handleDelete } = useTask();
     const [modalVisible, setModalVisible] = useState(false);
 
     function openModal() {
@@ -34,6 +33,7 @@ const TaskDetail = () => {
                         id={kerjaan.task_id}
                         isChecked={kerjaan.is_done}
                         onTaskCheck={handleTaskCheck}
+                        onDelete={handleDelete}
                     />
                 ))}
             </ScrollView>
