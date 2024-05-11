@@ -10,7 +10,7 @@ const TaskCard = () => {
     const navigation = useNavigation();
     return (
         <View style={cardStyles.container}>
-            <Text>Task</Text>
+            <Text style={styles.judul}>Task</Text>
             {limitedTasks.map((kerjaan, index) => (
                 <TaskCheklist
                     key={index}
@@ -21,7 +21,7 @@ const TaskCard = () => {
                 />
             ))}
             <TouchableOpacity onPress={() => navigation.navigate("TaskDetail")}>
-                <Text style={styles.seeMore}>See More</Text>
+                <Text style={styles.seeMore}>See More -{">"}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -29,8 +29,14 @@ const TaskCard = () => {
 
 const styles = StyleSheet.create({
     seeMore: {
-        marginTop: 10, // Memberikan jarak dari task checklist
+        textAlign: "right",
+        marginTop: 15, // Memberikan jarak dari task checklist
         textDecorationLine: "underline", // Menambahkan garis bawah pada teks
+    },
+    judul: {
+        fontSize: 24,
+        textAlign: "center",
+        marginBottom: 10,
     },
 });
 

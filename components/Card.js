@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import card from "../assets/StyleCard";
-
+import { Ionicons } from "@expo/vector-icons";
 import { useProfile } from "../data/ProfileContext";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,16 +15,24 @@ const Card = () => {
     return (
         <View style={card.container}>
             <View style={styles.rowCard}>
-                <Image source={foto} style={styles.gambar} />
-                <View>
-                    <Text>{nama}</Text>
-                    <Text>{jabatan}</Text>
+                <View style={styles.leftContent}>
+                    <Image source={foto} style={styles.gambar} />
                 </View>
-                <Image source={foto} style={styles.gambar} />
+                <View style={styles.centerContent}>
+                    <Text style={styles.nama}>{nama}</Text>
+                    <Text style={styles.jabatan}>{jabatan}</Text>
+                </View>
+                <TouchableOpacity
+                    onPress={navigateToEditProfile}
+                    style={styles.editButton}
+                >
+                    <Ionicons
+                        name="chevron-forward-outline"
+                        size={24}
+                        color="#384174"
+                    />
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={navigateToEditProfile}>
-                <Text>edit profile</Text>
-            </TouchableOpacity>
         </View>
     );
 };
@@ -33,13 +41,25 @@ const styles = StyleSheet.create({
     gambar: {
         width: 54,
         height: 54,
+        borderRadius: 12, // Membuat gambar menjadi lingkaran
     },
     rowCard: {
-        backgroundColor: "white",
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
+        justifyContent: "space-between",
     },
+    nama: {
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    jabatan: {
+        fontSize: 16,
+        color: "gray",
+        textAlign: "center",
+    },
+    editButton: {},
+    leftContent: {},
 });
 
 export default Card;

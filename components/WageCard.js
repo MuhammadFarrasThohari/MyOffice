@@ -32,8 +32,10 @@ const WageCard = () => {
 
     return (
         <View style={cardStyle.container}>
-            <Text>Wage</Text>
-            <Text>{formatter.format(gajiPokok + gajiBonus + gajiLembur)}</Text>
+            <Text style={styles.judul}>Wage</Text>
+            <Text style={styles.gajiBersih}>
+                {formatter.format(gajiPokok + gajiBonus + gajiLembur)}
+            </Text>
             <View style={cardStyle.second_container}>
                 <Text>Detail: {"\n"}</Text>
                 <Text>Base: {formatter.format(gajiPokok)}</Text>
@@ -42,6 +44,18 @@ const WageCard = () => {
             </View>
         </View>
     );
+};
+
+const styles = {
+    judul: {
+        fontSize: 24,
+        textAlign: "center",
+    },
+    gajiBersih: {
+        marginVertical: 10,
+        fontSize: 20,
+        textAlign: "center",
+    },
 };
 
 export default WageCard;

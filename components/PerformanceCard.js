@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import cardStyles from "../assets/StyleCard";
 import ProgressBar from "./ProgressBar";
 import { useNavigation } from "@react-navigation/native";
-
 const PerformanceCard = (props) => {
     const navigation = useNavigation();
 
@@ -20,14 +19,16 @@ const PerformanceCard = (props) => {
     return (
         <View style={cardStyles.container}>
             <View style={styles.columnStyles}>
-                <Text> Performance </Text>
+                <Text style={styles.judul}> Performance </Text>
                 <View style={styles.garisItem} />
-                <Text>{nilaiOverall} %</Text>
+                <Text style={styles.nilai}>{nilaiOverall} %</Text>
                 {/* Menyesuaikan prop progress dengan nilaiOverall */}
                 <ProgressBar progress={nilaiOverall} />
-                <Text> {props.short_review} </Text>
+                <View style={cardStyles.second_container}>
+                    <Text> {props.short_review} </Text>
+                </View>
                 <TouchableOpacity onPress={navigateToPerformance}>
-                    <Text>See More</Text>
+                    <Text style={styles.seeMore}>See More -{">"}</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -44,6 +45,19 @@ const styles = StyleSheet.create({
     columnStyles: {
         flexDirection: "column",
         justifyContent: "space-between",
+    },
+    judul: {
+        fontSize: 24,
+        textAlign: "center",
+    },
+    nilai: {
+        fontSize: 20,
+        textAlign: "center",
+    },
+    seeMore: {
+        textAlign: "right",
+        marginTop: 15, // Memberikan jarak dari task checklist
+        textDecorationLine: "underline", // Menambahkan garis bawah pada teks
     },
 });
 
