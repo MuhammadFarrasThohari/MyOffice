@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         bottom: 20,
         right: 20,
-        backgroundColor: "#03A9F4",
-        borderRadius: 30,
+        backgroundColor: "#798CFA",
+        borderRadius: 15,
         elevation: 8,
     },
     text: {

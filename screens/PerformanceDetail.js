@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Kotak from "../components/ProgressBar";
 import cardStyles from "../assets/StyleCard";
 import Stars from "../components/Stars";
@@ -28,21 +28,21 @@ const Performance = (props) => {
     }
 
     return (
-        <View
+        <ScrollView
             style={{
                 backgroundColor: "#070F2B",
                 flex: 1,
             }}
         >
             <View style={[cardStyles.container, styles.containerMargin]}>
-                <Text style={styles.textMargin}>Performance</Text>
-                <Text style={styles.textMargin}>{overallPerformance}%</Text>
+                <Text style={styles.judul}>Performance</Text>
+                <Text style={styles.nilaiJudul}>{overallPerformance}%</Text>
                 <Kotak
                     style={styles.kotakMargin}
                     progress={overallPerformance}
                 />
                 {/* Menampilkan kategori kinerja */}
-                <Text style={styles.textMargin}>
+                <Text style={styles.category}>
                     {performanceCategory} Performance
                 </Text>
                 <View
@@ -52,9 +52,9 @@ const Performance = (props) => {
                     ]}
                 >
                     <View>
-                        <Text style={styles.textMargin}>Attendance</Text>
-                        <Text style={styles.textMargin}>Quality of Work</Text>
-                        <Text style={styles.textMargin}>Reliability</Text>
+                        <Text style={styles.keterangan}>Attendance</Text>
+                        <Text style={styles.keterangan}>Quality of Work</Text>
+                        <Text style={styles.keterangan}>Reliability</Text>
                     </View>
                     <View style={styles.horizontalMargin}>
                         <Stars nilai={props.nilaiAttendance} />
@@ -68,12 +68,12 @@ const Performance = (props) => {
                         styles.fullReviewContainer,
                     ]}
                 >
-                    <Text style={styles.textMargin}>Full Review</Text>
-                    <Text style={styles.textMargin}>Dear [Employee Name]</Text>
-                    <Text style={styles.textMargin}>{props.full_review}</Text>
+                    <Text>Full Review</Text>
+                    <Text></Text>
+                    <Text>{props.full_review}</Text>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -81,15 +81,32 @@ const styles = StyleSheet.create({
     overriddenSecondContainer: {
         flexDirection: "row",
         alignItems: "center",
+        marginVertical: 10,
     },
     containerMargin: {
         margin: 10,
     },
-    textMargin: {
+    judul: {
+        fontSize: 24,
+        textAlign: "center",
+    },
+    nilaiJudul: {
+        fontSize: 20,
+        textAlign: "center",
+        marginVertical: 10,
+    },
+    category: {
+        fontSize: 18,
+        textAlign: "center",
+        fontWeight: "bold",
+        marginVertical: 10,
+    },
+    keterangan: {
+        fontSize: 14,
         marginVertical: 5,
     },
     horizontalMargin: {
-        marginHorizontal: 5,
+        marginHorizontal: 15,
     },
     kotakMargin: {
         marginTop: 10,

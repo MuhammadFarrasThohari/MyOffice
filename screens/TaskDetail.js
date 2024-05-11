@@ -25,7 +25,7 @@ const TaskDetail = () => {
             }}
         >
             <ScrollView style={cardStyles.container}>
-                <Text>Task</Text>
+                <Text style={styles.judul}>Task</Text>
                 {tasks.map((kerjaan, index) => (
                     <TaskCheklist
                         key={index}
@@ -43,6 +43,12 @@ const TaskDetail = () => {
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    judul: {
+        fontSize: 24,
+        textAlign: "center",
+        marginBottom: 10,
+    },
+});
 
 export default TaskDetail;
