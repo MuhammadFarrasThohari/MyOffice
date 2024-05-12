@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet } from "react-native"; // Import StyleSheet untuk styling
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons dari expo vector icons
 import Performance from "./PerformanceDetail";
 import { getNilai } from "../data/data";
 import Home from "./HomePage";
@@ -36,7 +38,31 @@ function MyTabs() {
     }, []);
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarStyle: styles.tabBar,
+                tabBarActiveTintColor: "#007AFF",
+                tabBarInactiveTintColor: "white",
+                tabBarLabelStyle: styles.tabBarLabel,
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === "Home") {
+                        iconName = focused ? "home" : "home-outline";
+                    } else if (route.name === "Performance") {
+                        iconName = focused ? "bar-chart" : "bar-chart-outline";
+                    } else if (route.name === "TaskDetail") {
+                        iconName = focused ? "list" : "list-outline";
+                    } else if (route.name === "Edit Profile") {
+                        iconName = focused ? "person" : "person-outline";
+                    }
+
+                    return (
+                        <Ionicons name={iconName} size={size} color={color} />
+                    );
+                },
+            })}
+        >
             <Tab.Screen name="Home" options={{ headerShown: false }}>
                 {() => (
                     <Home
@@ -80,3 +106,12 @@ const AppNavigator = () => {
 };
 
 export default AppNavigator;
+
+const styles = StyleSheet.create({
+    tabBar: {
+        backgroundColor: "#1B1A55", // warna background tab bar
+    },
+    tabBarLabel: {
+        fontSize: 12, // ukuran font label
+    },
+});
