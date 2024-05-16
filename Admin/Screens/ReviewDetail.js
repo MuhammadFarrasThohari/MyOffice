@@ -14,6 +14,7 @@ import card from "../../assets/StyleCard";
 import Stars from "../../components/Stars";
 import InputModal from "../Components/Modal";
 import { useEmployee } from "../../data/EmployeeContext";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons dari expo vector icons
 
 const ReviewDetail = ({ route }) => {
     const { updateReview } = useEmployee();
@@ -57,29 +58,44 @@ const ReviewDetail = ({ route }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.cardContainer}>
-                <Text style={styles.title}>Employee Review Details</Text>
+                <View style={styles.header}>
+                    <TouchableOpacity
+                        style={styles.backButton}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Ionicons
+                            name="chevron-back-outline"
+                            size={24}
+                            color="black"
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.title}>Employee Review Details</Text>
+                    <View />
+                </View>
+
                 <Text style={styles.subtitle}>Employee Profile</Text>
                 <View style={styles.profileContainer}>
-                    <Image source={require("../../assets/snack-icon.png")} />
-                    <Text>{nama}</Text>
-                    <Text>{jabatan}</Text>
+                    <Image source={{ uri: foto_users }} style={styles.gambar} />
+                    <View>
+                        <Text>{nama}</Text>
+                        <Text>{jabatan}</Text>
+                    </View>
                 </View>
                 <Text style={styles.subtitle}>Employee Performance</Text>
-                <View
-                    style={[
-                        styles.performanceContainer,
-                        styles.overriddenSecondContainer,
-                    ]}
-                >
-                    <View>
-                        <Text style={styles.textMargin}>Attendance</Text>
-                        <Text style={styles.textMargin}>Quality of Work</Text>
-                        <Text style={styles.textMargin}>Reliability</Text>
-                    </View>
-                    <View style={styles.horizontalMargin}>
-                        <Stars nilai={attendance} />
-                        <Stars nilai={qow} />
-                        <Stars nilai={reliability} />
+                <View style={[styles.performanceContainer]}>
+                    <View style={styles.overriddenSecondContainer}>
+                        <View>
+                            <Text style={styles.textMargin}>Attendance</Text>
+                            <Text style={styles.textMargin}>
+                                Quality of Work
+                            </Text>
+                            <Text style={styles.textMargin}>Reliability</Text>
+                        </View>
+                        <View style={styles.horizontalMargin}>
+                            <Stars nilai={attendance} />
+                            <Stars nilai={qow} />
+                            <Stars nilai={reliability} />
+                        </View>
                     </View>
                     <Button title="Add Review" onPress={openModal} />
                 </View>
@@ -99,12 +115,6 @@ const ReviewDetail = ({ route }) => {
                         onChangeText={setFullReview}
                     />
                 </View>
-                <TouchableOpacity
-                    style={styles.backButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.backButtonText}>Back</Text>
-                </TouchableOpacity>
                 <Button title="Save" onPress={SaveReview} />
             </View>
             <InputModal
@@ -130,12 +140,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     subtitle: {
-        fontSize: 16,
-        fontWeight: "bold",
         marginBottom: 5,
     },
     profileContainer: {
         ...card.second_container,
+        flexDirection: "row",
     },
     performanceContainer: {
         ...card.second_container,
@@ -159,6 +168,25 @@ const styles = StyleSheet.create({
     },
     backButtonText: {
         color: "black",
+    },
+    gambar: {
+        height: 70,
+        width: 70,
+        marginRight: 15,
+        borderRadius: 15,
+    },
+    header: {
+        flexDirection: "row",
+        marginBottom: 15,
+        alignItems: "center",
+    },
+    backButton: {
+        marginRight: 10,
+    },
+    title: {
+        flex: 1,
+        textAlign: "center",
+        fontSize: 20,
     },
 });
 

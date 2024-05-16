@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const EmployeeCard = ({ metadata }) => {
-    // , {profile: {nama: nama_users, jabatan: jabatan_users}, reviewValue:{bintang:} }
     const navigation = useNavigation();
     const {
         user_id,
