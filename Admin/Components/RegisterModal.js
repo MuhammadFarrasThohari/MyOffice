@@ -1,4 +1,12 @@
-import { View, Modal, Text, TextInput, Button, StyleSheet } from "react-native";
+import {
+    View,
+    Modal,
+    Text,
+    TextInput,
+    StyleSheet,
+    TouchableOpacity,
+    Alert,
+} from "react-native";
 import { useState } from "react";
 import { supabase } from "../supabaseAdmin";
 
@@ -13,10 +21,12 @@ const RegisterModal = ({ visible, close }) => {
             const { data, error } = await supabase.auth.admin.createUser({
                 email: employeeEmail,
                 password: employeePassword,
+                email_confirm: true,
             });
 
             console.log(data);
             if (error) {
+                Alert.alert("Error signing up", error.message);
                 console.error("Error signing up:", error.message);
                 return;
             }
@@ -41,6 +51,7 @@ const RegisterModal = ({ visible, close }) => {
                 return;
             }
 
+            Alert.alert("User registered successfully!");
             console.log("User registered successfully!");
             close(); // Close the modal after successful registration
         } catch (error) {
@@ -63,6 +74,7 @@ const RegisterModal = ({ visible, close }) => {
                     placeholder="Enter Employee Email"
                     value={employeeEmail}
                     onChangeText={setEmployeeEmail}
+                    keyboardType="email-address"
                 />
                 <TextInput
                     style={styles.input}
@@ -77,7 +89,17 @@ const RegisterModal = ({ visible, close }) => {
                     value={employeeRole}
                     onChangeText={setEmployeeRole}
                 />
-                <Button title="Register" onPress={registerEmployee} />
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.registerButton}
+                        onPress={registerEmployee}
+                    >
+                        <Text style={styles.buttonText}>Register</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.backButton} onPress={close}>
+                        <Text style={styles.buttonText}>Back</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </Modal>
     );
@@ -88,22 +110,53 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#fff",
+        backgroundColor: "#f0f4f7",
         padding: 20,
     },
     title: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "bold",
+        color: "#333",
         marginBottom: 20,
     },
     input: {
         width: "100%",
-        height: 40,
+        height: 50,
         borderWidth: 1,
         borderColor: "#ccc",
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginBottom: 10,
+        borderRadius: 10,
+        paddingHorizontal: 15,
+        backgroundColor: "#fff",
+        marginBottom: 15,
+        fontSize: 16,
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "100%",
+    },
+    registerButton: {
+        backgroundColor: "#1E90FF",
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        alignItems: "center",
+        flex: 1,
+        marginRight: 10,
+    },
+    backButton: {
+        backgroundColor: "#FF6347",
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        alignItems: "center",
+        flex: 1,
+        marginLeft: 10,
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
     },
 });
 

@@ -1,4 +1,4 @@
-import { Text, Button, ScrollView } from "react-native";
+import { Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { supabase } from "../../lib/supabase";
 import ReviewCard from "../Components/ReviewCard";
 import WageCard from "../Components/WageCard";
@@ -15,20 +15,24 @@ const AdminScreen = () => {
                 flex: 1,
             }}
         >
+            <Text style={styles.title}>Admin Screen</Text>
             <Card />
             <ReviewCard />
             <WageCard />
-            <Button
-                title="register employee"
+            <TouchableOpacity
                 onPress={() => {
                     setModalVisible(true);
                 }}
-            />
-            <Text>Admin Screen</Text>
-            <Button
-                title="Logout"
+                style={styles.button}
+            >
+                <Text style={styles.buttonText}>Register Employee</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
                 onPress={async () => await supabase.auth.signOut()}
-            />
+                style={styles.button}
+            >
+                <Text style={styles.buttonText}>Logout</Text>
+            </TouchableOpacity>
             <RegisterModal
                 visible={modalVisible}
                 close={() => setModalVisible(false)}
@@ -36,5 +40,28 @@ const AdminScreen = () => {
         </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    button: {
+        marginVertical: 10,
+        marginHorizontal: 20,
+        padding: 10,
+        backgroundColor: "#798CFA",
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginVertical: 20,
+        color: "#fff",
+    },
+});
 
 export default AdminScreen;

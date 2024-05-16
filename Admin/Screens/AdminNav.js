@@ -6,12 +6,35 @@ import ReviewNav from "./ReviewNav";
 import { EmployeeProvider } from "../../data/EmployeeContext";
 import WageScreen from "./WageScreen";
 import { EmployeeWageProvider } from "../../data/GajiContext";
+import { StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons dari expo vector icons
 
 const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarStyle: styles.tabBar,
+                tabBarActiveTintColor: "#007AFF",
+                tabBarInactiveTintColor: "white",
+                tabBarLabelStyle: styles.tabBarLabel,
+
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+                    if (route.name === "Admin Home") {
+                        iconName = focused ? "home" : "home-outline";
+                    } else if (route.name === "Review Employee") {
+                        iconName = focused ? "list" : "list-outline";
+                    } else if (route.name === "Wage Employee") {
+                        iconName = focused ? "cash" : "cash-outline";
+                    }
+                    return (
+                        <Ionicons name={iconName} size={size} color={color} />
+                    );
+                },
+            })}
+        >
             <Tab.Screen name="Admin Home" options={{ headerShown: false }}>
                 {() => <AdminScreen />}
             </Tab.Screen>
@@ -39,4 +62,12 @@ const AdminNav = () => {
     );
 };
 
+const styles = StyleSheet.create({
+    tabBar: {
+        backgroundColor: "#1B1A55", // warna background tab bar
+    },
+    tabBarLabel: {
+        fontSize: 12, // ukuran font label
+    },
+});
 export default AdminNav;
