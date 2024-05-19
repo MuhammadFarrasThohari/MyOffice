@@ -6,8 +6,6 @@ import { useEmployeeWage } from "../../data/GajiContext";
 const WageScreen = () => {
     const { employeeWage } = useEmployeeWage();
 
-    console.log(employeeWage);
-
     return (
         <View style={{ backgroundColor: "#070F2B", flex: 1 }}>
             <View style={card.container}>

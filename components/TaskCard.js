@@ -5,7 +5,7 @@ import { useTask } from "../data/Context";
 import { useNavigation } from "@react-navigation/native";
 
 const TaskCard = () => {
-    const { tasks, handleTaskCheck } = useTask();
+    const { tasks, handleTaskCheck, handleDelete } = useTask();
     const limitedTasks = tasks.slice(0, 3);
     const navigation = useNavigation();
     return (
@@ -18,6 +18,7 @@ const TaskCard = () => {
                     id={kerjaan.task_id}
                     isChecked={kerjaan.is_done}
                     onTaskCheck={handleTaskCheck}
+                    onDelete={handleDelete}
                 />
             ))}
             <TouchableOpacity onPress={() => navigation.navigate("TaskDetail")}>

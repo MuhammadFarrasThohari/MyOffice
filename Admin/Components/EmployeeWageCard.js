@@ -6,7 +6,6 @@ import { useEmployeeWage } from "../../data/GajiContext";
 
 const EmployeeWageCard = ({ metadata }) => {
     const { nama_users, jabatan_users, foto_users } = metadata;
-    console.log(metadata);
 
     const [modalVisible, setModalVisible] = useState(false);
 

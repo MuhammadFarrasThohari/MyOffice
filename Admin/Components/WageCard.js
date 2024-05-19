@@ -1,8 +1,11 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import card from "../../assets/StyleCard";
+import { useNavigation } from "@react-navigation/native";
 
 const WageCard = () => {
+    const navigation = useNavigation();
+
     const calculateDaysUntilPaycheck = () => {
         const today = new Date();
         const currentMonth = today.getMonth();
@@ -30,7 +33,10 @@ const WageCard = () => {
                     {daysUntilPaycheck} days until paycheck
                 </Text>
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Wage Employee")}
+            >
                 <Text style={styles.buttonText}>See more -{">"}</Text>
             </TouchableOpacity>
         </View>

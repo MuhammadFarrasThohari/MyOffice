@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
     Image,
     TouchableOpacity,
     StyleSheet,
-    Button,
     TextInput,
     ScrollView,
 } from "react-native";
@@ -32,6 +31,19 @@ const ReviewDetail = ({ route }) => {
     const [fullReview, setFullReview] = useState(initialFullReview);
     const [shortReview, setShortReview] = useState(initialShortReview);
 
+    const [isChanged, setIsChanged] = useState(false);
+
+    useEffect(() => {
+        const hasChanged =
+            attendance !== (nilai.Attendance || 0) ||
+            qow !== (nilai.QoW || 0) ||
+            reliability !== (nilai.Reliability || 0) ||
+            fullReview !== initialFullReview ||
+            shortReview !== initialShortReview;
+
+        setIsChanged(hasChanged);
+    }, [attendance, qow, reliability, fullReview, shortReview]);
+
     const openModal = () => setModalVisible(true);
     const closeModal = () => setModalVisible(false);
 
@@ -55,6 +67,7 @@ const ReviewDetail = ({ route }) => {
         );
         navigation.goBack();
     };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.cardContainer}>
@@ -97,7 +110,9 @@ const ReviewDetail = ({ route }) => {
                             <Stars nilai={reliability} />
                         </View>
                     </View>
-                    <Button title="Add Review" onPress={openModal} />
+                    <TouchableOpacity style={styles.button} onPress={openModal}>
+                        <Text style={styles.textDalam}>Add Review</Text>
+                    </TouchableOpacity>
                 </View>
                 <Text style={styles.subtitle}>Employee Short Review</Text>
                 <View style={styles.reviewContainer}>
@@ -115,7 +130,14 @@ const ReviewDetail = ({ route }) => {
                         onChangeText={setFullReview}
                     />
                 </View>
-                <Button title="Save" onPress={SaveReview} />
+
+                <TouchableOpacity
+                    style={[styles.save, !isChanged && styles.saveDisabled]}
+                    onPress={SaveReview}
+                    disabled={!isChanged}
+                >
+                    <Text style={styles.textDalam}>Save</Text>
+                </TouchableOpacity>
             </View>
             <InputModal
                 visibility={modalVisible}
@@ -187,6 +209,27 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: "center",
         fontSize: 20,
+    },
+    button: {
+        marginVertical: 10,
+        borderRadius: 10,
+        padding: 10,
+        backgroundColor: "#798CFA",
+        alignSelf: "flex-start",
+    },
+    save: {
+        marginTop: 10,
+        borderRadius: 10,
+        padding: 10,
+        backgroundColor: "#798CFA",
+        alignSelf: "center",
+    },
+    saveDisabled: {
+        backgroundColor: "#a0a0a0", // Color untuk tombol yang disable
+    },
+    textDalam: {
+        fontSize: 18,
+        fontWeight: "bold",
     },
 });
 

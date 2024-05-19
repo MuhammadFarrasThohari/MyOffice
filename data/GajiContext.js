@@ -55,6 +55,7 @@ export const EmployeeWageProvider = ({ children }) => {
                     console.error("Error updating wage data:", error.message);
                     return;
                 }
+                console.log("Data updated successfully: ", gaji_bonus);
             } else {
                 const { error } = await supabase.from("wage_users").insert([
                     {
@@ -68,8 +69,8 @@ export const EmployeeWageProvider = ({ children }) => {
                     console.error("Error inserting wage data:", error.message);
                     return;
                 }
+                console.log("Data inserted successfully");
             }
-            console.log("Wage data updated/inserted successfully!");
         } catch (error) {
             console.error("Error updating wage data:", error.message);
         }
