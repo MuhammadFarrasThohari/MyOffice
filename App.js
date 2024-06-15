@@ -53,12 +53,24 @@ export default function App() {
             <Stack.Navigator>
                 {session ? (
                     isAdmin ? (
-                        <Stack.Screen name="Admin" component={AdminNav} />
+                        <Stack.Screen
+                            name="Admin"
+                            component={AdminNav}
+                            options={{ headerShown: false }}
+                        />
                     ) : (
-                        <Stack.Screen name="Home" component={Home} />
+                        <Stack.Screen
+                            name="Home"
+                            component={Home}
+                            options={{ headerShown: false }}
+                        />
                     )
                 ) : (
-                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={{ headerShown: false }}
+                    />
                 )}
             </Stack.Navigator>
         </NavigationContainer>

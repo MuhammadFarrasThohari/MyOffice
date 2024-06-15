@@ -54,7 +54,7 @@ const Login = () => {
                     onChangeText={(text) => setPassword(text)}
                     secureTextEntry={true}
                 />
-                <Button title="Login" onPress={signIn} color="#CFD6FF" />
+                <Button title="Login" onPress={signIn} color="#798CFA" />
             </View>
             {isLoading && <ActivityIndicator size="large" color="#CFD6FF" />}
         </View>
