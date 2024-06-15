@@ -52,14 +52,19 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         textAlign: "center",
+        maxWidth: 150, // Sesuaikan dengan kebutuhan Anda
     },
     jabatan: {
         fontSize: 16,
         color: "gray",
         textAlign: "center",
+        maxWidth: 150, // Sesuaikan dengan kebutuhan Anda
     },
     editButton: {},
     leftContent: {},
+    centerContent: {
+        marginHorizontal: 10,
+    },
 });
 
 export default Card;
